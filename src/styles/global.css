@@ -19,6 +19,8 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-sans);
   font-size: var(--text-base);
   line-height: 1.6;
@@ -30,6 +32,10 @@ body {
   overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body > main {
+  flex: 1;
 }
 
 /* Typography */
