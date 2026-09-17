@@ -1,46 +1,33 @@
-# Astro Starter Kit: Basics
+# willemijn.tech
+
+Personal website for [willemijn.tech](https://willemijn.tech), built with Astro.
+
+## Development
+
+Requires Node.js 22.12 or newer and npm.
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The site currently contains three routes:
 
-## 🚀 Project Structure
+- `/`
+- `/about/`
+- `/contact/`
 
-Inside of your Astro project, you'll see the following folders and files:
+## Checks
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```sh
+npm run lint
+npm run format:check
+npm run check
+npm run build
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Licensing
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This repository is not offered under an open-source license. See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for licenses covering retained
+third-party code.

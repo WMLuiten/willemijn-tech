@@ -1,0 +1,78 @@
+---
+import siteConfig from '@/site.config';
+import { withBase } from '@/lib/url';
+import GlassPanel from './GlassPanel.astro';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <GlassPanel variant="solid" padding="lg" radius="none">
+    <div class="container footer-container">
+      <p>© {currentYear} {siteConfig.name}</p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          {
+            siteConfig.nav.main.map((item) => (
+              <li>
+                <a href={withBase(item.href)}>{item.name}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </GlassPanel>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-3xl);
+  }
+
+  .footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  p,
+  ul {
+    margin: 0;
+  }
+
+  p {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .footer-container {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

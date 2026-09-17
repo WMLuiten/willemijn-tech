@@ -1,0 +1,60 @@
+---
+import siteConfig, { resolvedOgLocale } from '@/site.config';
+import { withBase } from '@/lib/url';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  ogImage = siteConfig.ogImage,
+  noIndex = false,
+} = Astro.props;
+
+const siteURL = Astro.site ?? new URL(siteConfig.url);
+const fullTitle =
+  title === siteConfig.title ? title : `${title} - ${siteConfig.name}`;
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const ogImageURL = new URL(withBase(ogImage), siteURL).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteConfig.name,
+  description: siteConfig.description,
+  url: new URL(withBase('/'), siteURL).href,
+};
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+{!noIndex && <link rel="canonical" href={canonicalURL} />}
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:locale" content={resolvedOgLocale} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL} />
+
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+{
+  !noIndex && (
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
+    />
+  )
+}
