@@ -2,13 +2,26 @@
 import siteConfig from '@/site.config';
 import { withBase } from '@/lib/url';
 
+interface Props {
+  lang?: 'en' | 'nl';
+  activeHref?: string;
+}
+
+const { lang, activeHref } = Astro.props;
 const currentPath = Astro.url.pathname;
+const languageSwitch =
+  lang === 'en'
+    ? { label: 'NL', href: '/nl/about/', lang: 'nl' }
+    : lang === 'nl'
+      ? { label: 'EN', href: '/about/', lang: 'en' }
+      : undefined;
 
 // A nav item is active when the path matches exactly or sits under it
 // (e.g. /about stays active below /about). "/" only
 // matches the home page itself. currentPath includes the base, so compare
 // against the base-prefixed href.
 function isActive(href: string): boolean {
+  if (activeHref) return href === activeHref;
   const target = withBase(href);
   const home = withBase('/');
   if (href === '/') return currentPath === home;
@@ -44,6 +57,24 @@ const navItems = siteConfig.nav.main;
     <!-- Navigation -->
     <nav id="navigation" class="nav-menu" aria-label="Main navigation">
       <ul class="nav-list">
+        {
+          languageSwitch && (
+            <li class="nav-item language-switch">
+              <a
+                href={withBase(languageSwitch.href)}
+                class="nav-link"
+                lang={languageSwitch.lang}
+                aria-label={
+                  lang === 'nl'
+                    ? 'View this page in English'
+                    : 'Bekijk deze pagina in het Nederlands'
+                }
+              >
+                {languageSwitch.label}
+              </a>
+            </li>
+          )
+        }
         {
           navItems.map((item) => (
             <li class="nav-item">
@@ -115,6 +146,12 @@ const navItems = siteConfig.nav.main;
     margin: 0;
   }
 
+  .language-switch {
+    border-right: 1px solid var(--glass-border);
+    margin-right: var(--space-xs);
+    padding-right: var(--space-xs);
+  }
+
   .nav-link {
     display: inline-flex;
     align-items: center;
@@ -122,23 +159,19 @@ const navItems = siteConfig.nav.main;
     color: var(--color-text-muted);
     text-decoration: none;
     font-weight: 500;
-    border-radius: var(--radius-md);
-    transition:
-      color var(--transition-fast),
-      background-color var(--transition-fast);
+    transition: color var(--transition-fast);
     position: relative;
   }
 
   @media (hover: hover) {
     .nav-link:hover {
       color: var(--color-text);
-      background: var(--glass-bg);
+      text-decoration: none;
     }
   }
 
   .nav-link.active {
-    color: var(--color-accent);
-    background: var(--color-accent-glass);
+    color: var(--color-accent-text);
   }
 
   .nav-link.active::after {
@@ -199,6 +232,15 @@ const navItems = siteConfig.nav.main;
 
     .nav-link.active::after {
       display: none;
+    }
+
+    .language-switch {
+      border-right: 0;
+      border-bottom: 1px solid var(--glass-border);
+      margin-right: 0;
+      margin-bottom: var(--space-xs);
+      padding-right: 0;
+      padding-bottom: var(--space-sm);
     }
 
     .menu-toggle {

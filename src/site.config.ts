@@ -16,8 +16,8 @@ export interface SiteConfig {
 }
 
 const siteConfig: SiteConfig = {
-  name: 'willemijn-tech',
-  title: 'willemijn-tech',
+  name: 'willemijn.tech',
+  title: 'willemijn.tech',
   description: 'Personal website for Willemijn.',
   url: 'https://willemijn.tech',
   ogImage: '/og-image.png',

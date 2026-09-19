@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/common/Header.astro';
+import Footer from '@/components/common/Footer.astro';
+import GlassPanel from '@/components/common/GlassPanel.astro';
+import Container from '@/components/ui/Container.astro';
+
+interface Props {
+  lang: 'en' | 'nl';
+}
+
+const { lang } = Astro.props;
+const copy = {
+  en: {
+    title: 'About',
+    description: 'About Willemijn.',
+    text: 'This page is under construction.',
+  },
+  nl: {
+    title: 'Over mij',
+    description: 'Over Willemijn.',
+    text: 'Deze pagina is nog in aanbouw.',
+  },
+}[lang];
+---
+
+<BaseLayout lang={lang} title={copy.title} description={copy.description}>
+  <Header lang={lang} />
+
+  <main id="main" tabindex="-1">
+    <section class="section">
+      <Container size="md">
+        <GlassPanel variant="solid" padding="xl">
+          <h1>{copy.title}</h1>
+          <p>{copy.text}</p>
+        </GlassPanel>
+      </Container>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

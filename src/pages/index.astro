@@ -2,8 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/common/Header.astro';
 import Footer from '@/components/common/Footer.astro';
-import GlassPanel from '@/components/common/GlassPanel.astro';
-import Container from '@/components/ui/Container.astro';
 import siteConfig from '@/site.config';
 ---
 
@@ -11,15 +9,93 @@ import siteConfig from '@/site.config';
   <Header />
 
   <main id="main" tabindex="-1">
-    <section class="section">
-      <Container size="md">
-        <GlassPanel variant="solid" padding="xl">
-          <h1>Willemijn</h1>
-          <p>This website is under construction.</p>
-        </GlassPanel>
-      </Container>
-    </section>
+    <div class="composition">
+      <h1><span>Hi, I'm</span><strong>Willemijn!</strong></h1>
+
+      <div class="copy">
+        <p>
+          I like films, making cocktails, going to the gym, listening to
+          audiobooks and podcasts, knitting, and learning things I probably
+          didn't need to know.
+        </p>
+        <p>
+          I have a habit of getting curious about something and going much
+          further down the rabbit hole than necessary.
+        </p>
+      </div>
+    </div>
   </main>
 
   <Footer />
 </BaseLayout>
+
+<style>
+  main {
+    display: flex;
+    align-items: center;
+    border-block: 1px solid var(--glass-border);
+    background: var(--color-surface);
+    padding-block: clamp(4rem, 10vh, 8rem) var(--space-lg);
+  }
+
+  .composition {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.8fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: center;
+    width: min(100% - 3rem, var(--container-max));
+    max-width: var(--container-6xl);
+    margin-inline: auto;
+  }
+
+  h1 {
+    max-width: 8ch;
+    margin: 0;
+    font-size: clamp(4rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  h1 span,
+  h1 strong {
+    display: block;
+  }
+
+  h1 strong {
+    font-family: 'Space Grotesk', var(--font-sans);
+    font-weight: 600;
+  }
+
+  .copy {
+    max-width: 38rem;
+    border-left: 2px solid var(--color-accent-text);
+    padding-left: clamp(1.5rem, 4vw, 3rem);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .copy p {
+    margin: 0;
+  }
+
+  .copy p + p {
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    main {
+      align-items: flex-start;
+      padding-block: var(--space-3xl) var(--space-lg);
+    }
+
+    .composition {
+      display: block;
+      width: min(100% - 2rem, var(--container-max));
+    }
+
+    h1 {
+      margin-bottom: var(--space-3xl);
+      font-size: clamp(3.75rem, 17vw, 6rem);
+    }
+  }
+</style>

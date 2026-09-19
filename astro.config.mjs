@@ -4,6 +4,10 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://willemijn.tech',
+  i18n: {
+    locales: ['en', 'nl'],
+    defaultLocale: 'en',
+  },
   integrations: [sitemap()],
   output: 'static',
   trailingSlash: 'always',
